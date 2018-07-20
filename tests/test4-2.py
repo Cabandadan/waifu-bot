@@ -34,12 +34,12 @@ my_dict = {
 }
 
 #images
-photo0 = PhotoImage(file="bw_test.png")
+photo0 = PhotoImage(file="tests/bw_test.png")
 bw_test0 = Label(topFrame, image=photo0)
 bw_test0.image = photo0
 bw_test0.pack(side=TOP)
 
-photo = PhotoImage(file="test5.png")
+photo = PhotoImage(file="tests/test5.png")
 bw_test = Label(topFrame, image=photo)
 bw_test.image = photo
 #bw_test.pack(side=TOP)
@@ -52,7 +52,7 @@ blank2 = Label(bottomFrame, text="")
 output = Text(bottomFrame, width=60,height=5,wrap=WORD)
 textoutp = Label(bottomFrame,text="Answer: ",font="none 10 bold")
 
-photo2 = PhotoImage(file="test1.gif")
+photo2 = PhotoImage(file="tests/test1.gif")
 bw_test2 = Label(topFrame, image=photo2)
 bw_test2.image = photo2
 
