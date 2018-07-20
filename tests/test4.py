@@ -34,7 +34,7 @@ my_dict = {
 }
 
 #images
-photo = PhotoImage(file="5.png")
+photo = PhotoImage(file="test5.png")
 bw_test = Label(topFrame, image=photo)
 bw_test.image = photo
 bw_test.pack(side=TOP)
