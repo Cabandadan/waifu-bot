@@ -1,49 +1,74 @@
-#simple GUI
+# Attempted speech
 
+#imports
 from tkinter import *
+import tkinter.messagebox
+import random
+import requests
+import json
 
 #create the Window
 root = Tk()
-
-#modify the Window
-root.title("Kirise Akane")
-root.geometry("500x500")
+root.title("Test")
+#root.geometry("500x500")
 root.configure()
 
-topFrame = Frame(root)
+
+# user info
+user = 'dUWbjEeJnrSlP3AS'
+key = '1jS25GWhpyvDSjWS9ONC16XuS9hyQXGm'
+
+q_pres = {'who is my waifu':'2b'
+
+}
+#key funciton
+def click():
+    entered_text=textentry.get()
+    output.delete(0.0, END)
+
+    try:
+        response = q_pres[entered_text]
+    except:
+        txt = entered_text
+        r= json.loads(requests.post('https://cleverbot.io/1.0/ask', json={'user':user, 'key':key, 'nick':'frost', 'text':txt}).text)
+        response = r['response']
+    output.insert(END, response)
+
+
 #frames
+topFrame = Frame(root)
 topFrame.pack()
 bottomFrame = Frame(root)
 bottomFrame.pack(side=BOTTOM)
 
-#buttons
-button1 = Button(bottomFrame, text="High Five", fg="white", bg="#373737")
-button2 = Button(bottomFrame, text="Smile", fg="white", bg="#373737")
-button3 = Button(bottomFrame, text="Pat", fg="white", bg="#373737")
-button4 = Button(bottomFrame, text="Say hi", fg="white", bg="#373737")
-button1.pack(side=LEFT)
-button2.pack(side=LEFT)
-button3.pack(side=LEFT)
-button4.pack(side=LEFT)
+#submitbutton
+send = Button(bottomFrame,text="Send!",width=5,command=click)
+send.pack()
 
 #textentry
-textentry = Entry(root,width=20)
+textentry = Entry(root,width=30)
 textentry.pack(side=BOTTOM)
 
 #text
-textinp = Label(root, text="Say something: ")
+textinp = Label(root, text="Say something:")
 textinp.pack(side=BOTTOM)
 
-#labels
-blank = Label(topFrame, text="\n \n")
-blank2 = Label(bottomFrame, text="\n \n \n \n")
+#blanks
+blank = Label(topFrame, text="")
+blank2 = Label(bottomFrame, text="")
 blank.pack()
 blank2.pack(side = BOTTOM)
 
-#images
-photo = PhotoImage(file="bw_test.png")
-bw_test = Label(root, image=photo)
-bw_test.pack(side=TOP)
+#outputbox
+output = Text(bottomFrame, width=60,height=5,wrap=WORD)
+output.pack(side=BOTTOM)
 
-#kick off the event loop (keeps continually on screen)
+#respone
+textoutp = Label(bottomFrame,text="Answer: ",font="none 10 bold")
+textoutp.pack(side=BOTTOM)
+
+#create acc
+#requests.post('https://cleverbot.io/1.0/create', json={'user':user, 'key':key, 'nick':'frost'})
+
+#kick off the event loop
 root.mainloop()

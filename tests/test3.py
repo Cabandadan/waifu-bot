@@ -1,32 +1,44 @@
-#simple GUI
+# Attempted speech
 
+#imports
 from tkinter import *
-
-#key down funciton
-def click():
-    entered_text=textentry.get()
-    output.delete(0.0, END)
-    try:
-        definition = my_dict[entered_text]
-    except:
-        definition = "sorry senpai, i'm not smart enough to respond to that yet"
-    output.insert(END, definition)
+import tkinter.messagebox
+import random
+import clever
 
 #create the Window
 root = Tk()
-
-#modify the Window
-root.title("Kirise Akane")
+root.title("Test")
 #root.geometry("500x500")
 root.configure()
+
+
+#user info
+user = 'dUWbjEeJnrSlP3AS'
+key = '1jS25GWhpyvDSjWS9ONC16XuS9hyQXGm'
+client = clever.CleverBot(user=user, key=key)
+
+q_pres = {'who is my waifu':'2b'
+
+}
+#key funciton
+def click():
+    entered_text=textentry.get()
+    output.delete(0.0, END)
+
+    try:
+        response = q_pres[entered_text]
+    except:
+        txt = entered_text
+        response = client.query(txt)
+    output.insert(END, response)
+
 
 #frames
 topFrame = Frame(root)
 topFrame.pack()
 bottomFrame = Frame(root)
 bottomFrame.pack(side=BOTTOM)
-rightFrame = Frame(root)
-rightFrame.pack(side=RIGHT)
 
 #submitbutton
 send = Button(bottomFrame,text="Send!",width=5,command=click)
@@ -51,29 +63,11 @@ output = Text(bottomFrame, width=60,height=5,wrap=WORD)
 output.pack(side=BOTTOM)
 
 #respone
-textoutp = Label(bottomFrame,text="Kirise: ",font="none 10 bold")
+textoutp = Label(bottomFrame,text="Answer: ",font="none 10 bold")
 textoutp.pack(side=BOTTOM)
 
-#images
-photo = PhotoImage(file="bw_test.png")
-bw_test = Label(root, image=photo)
-bw_test.pack(side=TOP)
+#create acc
+#requests.post('https://cleverbot.io/1.0/create', json={'user':user, 'key':key, 'nick':'frost'})
 
-#dictionary
-my_dict = {
-'hi' : 'hello', 'who is my waifu?' : '2b','how is your day?' : 'it is a wonderful day senpai!'
-}
-
-'''
-#exitfunc
-def close_window():
-    root.destroy()
-    exit()
-
-#exitbutton
-exitbutton = Button(root, text="KiLlmE",command=close_window)
-exitbutton.pack(side=BOTTOM)
-'''
-
-#kick off the event loop (keeps continually on screen)
+#kick off the event loop
 root.mainloop()
