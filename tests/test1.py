@@ -1,6 +1,9 @@
-#simple GUI
+#imports
 from tkinter import *
 import tkinter.messagebox
+import random
+import requests
+import json
 
 #create the Window
 root = Tk()
@@ -10,15 +13,22 @@ root.title("Test")
 #root.geometry("500x500")
 root.configure()
 
-#key down funciton
+user = 'dUWbjEeJnrSlP3AS'
+key = '1jS25GWhpyvDSjWS9ONC16XuS9hyQXGm'
+requests.post('https://cleverbot.io/1.0/create', json={'user':user, 'key':key, 'nick':'frost'})
+
+#key down function
 def click():
     entered_text=textentry.get()
     output.delete(0.0, END)
     try:
-        definition = my_dict[entered_text]
+        response = q_pres[entered_text]
     except:
-        definition = "sorry senpai, i'm not smart enough to respond to that yet"
-    output.insert(END, definition)
+        txt = entered_text
+        r= json.loads(requests.post('https://cleverbot.io/1.0/ask', json={'user':user, 'key':key, 'nick':'frost', 'text':txt}).text)
+        response = r['response']
+    output.insert(END, response)
+
 
 #frames
 topFrame = Frame(root)
@@ -34,12 +44,12 @@ my_dict = {
 }
 
 #images
-photo0 = PhotoImage(file="tests/bw_test.png")
+photo0 = PhotoImage(file="tests/2.png")
 bw_test0 = Label(topFrame, image=photo0)
 bw_test0.image = photo0
 bw_test0.pack(side=TOP)
 
-photo = PhotoImage(file="tests/test5.png")
+photo = PhotoImage(file="tests/1.png")
 bw_test = Label(topFrame, image=photo)
 bw_test.image = photo
 #bw_test.pack(side=TOP)
@@ -50,9 +60,9 @@ textinp = Label(root, text="Say something:")
 blank = Label(topFrame, text="")
 blank2 = Label(bottomFrame, text="")
 output = Text(bottomFrame, width=60,height=5,wrap=WORD)
-textoutp = Label(bottomFrame,text="Answer: ",font="none 10 bold")
+textoutp = Label(bottomFrame,text="Respone: ",font="none 10 bold")
 
-photo2 = PhotoImage(file="tests/test1.gif")
+photo2 = PhotoImage(file="tests/3.png")
 bw_test2 = Label(topFrame, image=photo2)
 bw_test2.image = photo2
 

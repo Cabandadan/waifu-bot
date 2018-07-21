@@ -14,25 +14,29 @@ root.title("Test")
 root.configure()
 
 
-#user info
+# user info
 user = 'dUWbjEeJnrSlP3AS'
 key = '1jS25GWhpyvDSjWS9ONC16XuS9hyQXGm'
-
-
+requests.post('https://cleverbot.io/1.0/create', json={'user':user, 'key':key, 'nick':'frost'})
 q_pres = {'who is my waifu':'2b'
-
 }
+
 #key funciton
 def click():
     entered_text=textentry.get()
     output.delete(0.0, END)
 
-    try:
-        response = q_pres[entered_text]
-    except:
-        txt = entered_text
-        response = client.query(txt)
-    output.insert(END, response)
+    #try:
+    #    response = q_pres[entered_text]
+    #except:
+    #    txt = entered_text
+    #    r= json.loads(requests.post('https://cleverbot.io/1.0/ask', json={'user':user, 'key':key, 'nick':'frost', 'text':txt}).text)
+    #    response = r['response']
+    txt = entered_text
+    r = json.loads(requests.post('https://cleverbot.io/1.0/ask', json={'user':user, 'key':key, 'nick':'frost', 'text':txt}).text)
+    print(r)
+    #re = r['response']
+    #output.insert(END, re)
 
 
 #frames
@@ -68,7 +72,7 @@ textoutp = Label(bottomFrame,text="Answer: ",font="none 10 bold")
 textoutp.pack(side=BOTTOM)
 
 #create acc
-requests.post('https://cleverbot.io/1.0/create', json={'user':user, 'key':key, 'nick':'frost'})
+#requests.post('https://cleverbot.io/1.0/create', json={'user':user, 'key':key, 'nick':'frost'})
 
 #kick off the event loop
 root.mainloop()

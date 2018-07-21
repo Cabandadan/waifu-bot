@@ -17,21 +17,25 @@ root.configure()
 # user info
 user = 'dUWbjEeJnrSlP3AS'
 key = '1jS25GWhpyvDSjWS9ONC16XuS9hyQXGm'
+requests.post('https://cleverbot.io/1.0/create', json={'user':user, 'key':key, 'nick':'frost'})
 
 q_pres = {'who is my waifu':'2b'
-
 }
+
 #key funciton
 def click():
     entered_text=textentry.get()
     output.delete(0.0, END)
 
-    try:
-        response = q_pres[entered_text]
-    except:
-        txt = entered_text
-        r= json.loads(requests.post('https://cleverbot.io/1.0/ask', json={'user':user, 'key':key, 'nick':'frost', 'text':txt}).text)
-        response = r['response']
+    #try:
+    #    response = q_pres[entered_text]
+    #except:
+    #    txt = entered_text
+    #    r= json.loads(requests.post('https://cleverbot.io/1.0/ask', json={'user':user, 'key':key, 'nick':'frost', 'text':txt}).text)
+    #    response = r['response']
+    txt = entered_text
+    r= json.loads(requests.post('https://cleverbot.io/1.0/ask', json={'user':user, 'key':key, 'nick':'frost', 'text':txt}).text)
+    response = r['response']
     output.insert(END, response)
 
 
